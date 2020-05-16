@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{49af6142-b017-49b4-a842-43d7c7ad0eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{fbf10ec0-819a-4d2d-9dad-d330a91886c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extras">
+      <UniqueIdentifier>{b7ddd404-4f79-401c-ab37-5d67700f416b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{48f1a259-3d5b-4c21-8073-ae5c4df24bdb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CPPLUAENGINE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameState.lua">
+      <Filter>States</Filter>
+    </None>
+    <None Include="MainMenuState.lua">
+      <Filter>States</Filter>
+    </None>
+    <None Include="RegisterCppFunctions.lua">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Player.lua">
+      <Filter>Player</Filter>
+    </None>
+    <None Include="Keyboard.lua">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="GameState_Textures.lua">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Initialize_Components.lua">
+      <Filter>Components</Filter>
+    </None>
+    <None Include="Physics_Component.lua">
+      <Filter>Components</Filter>
+    </None>
+    <None Include="Vector2.lua">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LUA_NOTES.txt">
+      <Filter>Extras</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

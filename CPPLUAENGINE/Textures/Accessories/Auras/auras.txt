@@ -1,0 +1,11 @@
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura01.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura02.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura03.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura04.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura05.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura06.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura07.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura08.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura09.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura10.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Auras\aura11.png

@@ -1,0 +1,13 @@
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight01.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight02.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight03.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight04.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight05.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight06.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight07.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight08.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight09.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight10.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight11.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight12.png
+F:\Projects\CPPLUAENGINE\CPPLUAENGINE\Textures\Accessories\Right_Wings\wingRight13.png

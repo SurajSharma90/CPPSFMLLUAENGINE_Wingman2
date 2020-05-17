@@ -29,3 +29,5 @@ Player_Left_Wing_Textures = lines_from("Textures/Accessories/Left_Wings/left_win
 Player_Right_Wing_Textures = lines_from("Textures/Accessories/Right_Wings/right_wings.txt")
 
 Player_Cannon_Texture = cpp_newTexture("Textures/Guns/gun01.png")
+
+Virus_Texture = cpp_newTexture("Textures/Enemies/virus.png")

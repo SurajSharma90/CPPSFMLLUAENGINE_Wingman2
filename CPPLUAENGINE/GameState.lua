@@ -14,6 +14,10 @@ cpp_setBackgroundTexture(bgTex)
 
 player1 = Player:Create(0, 0)
 
+virus = cpp_newSprite(Virus_Texture, 0.0, 0.0)
+cpp_setSpriteScale(virus, 0.5, 0.5)
+print(cpp_getSpriteScale(virus).x)
+
 --​You can do like this Suraj. void call_lua(auto& func, auto...args){func(args...);} MRPHD--
 --​func(L, args...) in your case--
 

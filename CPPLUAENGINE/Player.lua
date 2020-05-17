@@ -40,28 +40,31 @@ end
 function Player:UpdateShipParts()
 	
 	--Position
-	cpp_setPositionSprite(
+	x = cpp_getSpritePosition(self.cockpit_sprite).x
+	y = cpp_getSpritePosition(self.cockpit_sprite).y
+
+	cpp_setSpritePosition(
 		self.aura_sprite, 
-		cpp_getPositionSpriteX(self.cockpit_sprite),
-		cpp_getPositionSpriteY(self.cockpit_sprite)
+		x,
+		y
 	)
 	
-	cpp_setPositionSprite(
+	cpp_setSpritePosition(
 		self.cannon_sprite,
-		cpp_getPositionSpriteX(self.cockpit_sprite),
-		cpp_getPositionSpriteY(self.cockpit_sprite)
+		x,
+		y
 	)
 	
-	cpp_setPositionSprite(
+	cpp_setSpritePosition(
 		self.left_wing_sprite,
-		cpp_getPositionSpriteX(self.cockpit_sprite) + self.heading:AngleRelativeTo(-170).x * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40)),
-		cpp_getPositionSpriteY(self.cockpit_sprite) + self.heading:AngleRelativeTo(-170).y * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40))
+		x + self.heading:AngleRelativeTo(-170).x * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40)),
+		y + self.heading:AngleRelativeTo(-170).y * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40))
 	)
 
-	cpp_setPositionSprite(
+	cpp_setSpritePosition(
 		self.right_wing_sprite,
-		cpp_getPositionSpriteX(self.cockpit_sprite) + self.heading:AngleRelativeTo(170).x * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40)),
-		cpp_getPositionSpriteY(self.cockpit_sprite) + self.heading:AngleRelativeTo(170).y * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40))
+		x + self.heading:AngleRelativeTo(170).x * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40)),
+		y + self.heading:AngleRelativeTo(170).y * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40))
 	)
 
 	--Rotation
@@ -96,7 +99,7 @@ end
 
 function Player:UpdateHeading()
 
-	playerPos = Vector2:Create(cpp_getPositionSpriteX(), cpp_getPositionSpriteY())
+	playerPos = Vector2:Create(cpp_getSpritePosition().x, cpp_getSpritePosition().y)
 	mousePos = Vector2:Create(cpp_getMousePosWorld().x, cpp_getMousePosWorld().y)
 	
 	self.heading = mousePos:Subtract(playerPos):Normalize()
@@ -114,12 +117,12 @@ function Player:Update()
 	self:UpdateShipParts()
 	
 	cpp_setViewCenter(
-		cpp_getPositionSpriteX(
+		cpp_getSpritePosition(
 			self.cockpit_sprite
-		) + self.physics_component.velocityX / 10, 
-		cpp_getPositionSpriteY(
+		).x + self.physics_component.velocityX / 10, 
+		cpp_getSpritePosition(
 			self.cockpit_sprite
-		)  + self.physics_component.velocityY / 10
+		).y  + self.physics_component.velocityY / 10
 	)
 
 end

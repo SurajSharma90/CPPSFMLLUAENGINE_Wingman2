@@ -72,15 +72,16 @@ public:
 	static int newTextureBatch(lua_State* L);
 	static int newSprite(lua_State* L);
 	static int moveSprite(lua_State* L);
-	static int cpp_setPositionSprite(lua_State* L);
-	static int cpp_getPositionSpriteX(lua_State* L);
-	static int cpp_getPositionSpriteY(lua_State* L);
+	static int cpp_setSpritePosition(lua_State* L);
+	static int cpp_getSpritePosition(lua_State* L);
 	static int cpp_rotateSprite(lua_State* L);
 	static int cpp_setSpriteRotation(lua_State* L);
 	static int cpp_getSpriteRotation(lua_State* L);
 	static int cpp_setSpriteOrigin(lua_State* L);
 	static int cpp_getSpriteOriginX(lua_State* L);
 	static int cpp_getSpriteOriginY(lua_State* L);
+	static int cpp_setSpriteScale(lua_State* L);
+	static int cpp_getSpriteScale(lua_State* L);
 
 	//Input
 	static int keyPressed(lua_State* L);

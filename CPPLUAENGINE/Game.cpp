@@ -14,7 +14,6 @@ void Game::initWindow()
 
 	this->window.setFramerateLimit(144);
 	//this->window.setVerticalSyncEnabled(true);
-	
 }
 
 void Game::initView()
@@ -92,14 +91,11 @@ void Game::registerLuaFunctions()
 	lua_pushcfunction(this->L, moveSprite);
 	lua_setglobal(this->L, "moveSprite");
 
-	lua_pushcfunction(this->L, cpp_setPositionSprite);
-	lua_setglobal(this->L, "cpp_setPositionSprite");
+	lua_pushcfunction(this->L, cpp_setSpritePosition);
+	lua_setglobal(this->L, "cpp_setSpritePosition");
 
-	lua_pushcfunction(this->L, cpp_getPositionSpriteX);
-	lua_setglobal(this->L, "cpp_getPositionSpriteX");
-
-	lua_pushcfunction(this->L, cpp_getPositionSpriteY);
-	lua_setglobal(this->L, "cpp_getPositionSpriteY");
+	lua_pushcfunction(this->L, cpp_getSpritePosition);
+	lua_setglobal(this->L, "cpp_getSpritePosition");
 
 	lua_pushcfunction(this->L, cpp_rotateSprite);
 	lua_setglobal(this->L, "cpp_rotateSprite");
@@ -118,6 +114,12 @@ void Game::registerLuaFunctions()
 
 	lua_pushcfunction(this->L, cpp_getSpriteOriginY);
 	lua_setglobal(this->L, "cpp_getSpriteOriginY");
+
+	lua_pushcfunction(this->L, cpp_setSpriteScale);
+	lua_setglobal(this->L, "cpp_setSpriteScale");
+
+	lua_pushcfunction(this->L, cpp_getSpriteScale);
+	lua_setglobal(this->L, "cpp_getSpriteScale");
 
 	lua_pushcfunction(this->L, keyPressed);
 	lua_setglobal(this->L, "keyPressed");
@@ -419,7 +421,7 @@ int Game::moveSprite(lua_State* L)
 	return 0;
 }
 
-int Game::cpp_setPositionSprite(lua_State* L)
+int Game::cpp_setSpritePosition(lua_State* L)
 {
 	lua_getglobal(L, "Game");
 	Game* game = (Game*)lua_touserdata(L, -1);
@@ -433,26 +435,16 @@ int Game::cpp_setPositionSprite(lua_State* L)
 	return 0;
 }
 
-int Game::cpp_getPositionSpriteX(lua_State* L)
+int Game::cpp_getSpritePosition(lua_State* L)
 {
 	lua_getglobal(L, "Game");
 	Game* game = (Game*)lua_touserdata(L, -1);
 
 	int sprite_index = lua_tointeger(L, 1);
 
-	lua_pushinteger(L, game->sprites[sprite_index]->getPosition().x);
-
-	return 1;
-}
-
-int Game::cpp_getPositionSpriteY(lua_State* L)
-{
-	lua_getglobal(L, "Game");
-	Game* game = (Game*)lua_touserdata(L, -1);
-
-	int sprite_index = lua_tointeger(L, 1);
-
-	lua_pushinteger(L, game->sprites[sprite_index]->getPosition().y);
+	lua_createtable(L, 2, 0);
+	lua_pushinteger(L, game->sprites[sprite_index]->getPosition().x); lua_setfield(L, -2, "x");
+	lua_pushinteger(L, game->sprites[sprite_index]->getPosition().y); lua_setfield(L, -2, "y");
 
 	return 1;
 }
@@ -529,6 +521,35 @@ int Game::cpp_getSpriteOriginY(lua_State* L)
 	int sprite_index = lua_tointeger(L, 1);
 
 	lua_pushinteger(L, game->sprites[sprite_index]->getOrigin().y);
+
+	return 1;
+}
+
+int Game::cpp_setSpriteScale(lua_State* L)
+{
+	lua_getglobal(L, "Game");
+	Game* game = (Game*)lua_touserdata(L, -1);
+
+	int sprite_index = lua_tointeger(L, 1);
+
+	float scale_x = lua_tonumber(L, 2);
+	float scale_y = lua_tonumber(L, 3);
+
+	game->sprites[sprite_index]->setScale(scale_x, scale_y);
+
+	return 0;
+}
+
+int Game::cpp_getSpriteScale(lua_State* L)
+{
+	lua_getglobal(L, "Game");
+	Game* game = (Game*)lua_touserdata(L, -1);
+
+	int sprite_index = lua_tointeger(L, 1);
+
+	lua_createtable(L, 2, 0);
+	lua_pushnumber(L, game->sprites[sprite_index]->getScale().x); lua_setfield(L, -2, "x");
+	lua_pushnumber(L, game->sprites[sprite_index]->getScale().y); lua_setfield(L, -2, "y");
 
 	return 1;
 }

@@ -4,6 +4,7 @@ class Game
 {
 private:
 	sf::RenderWindow window;
+	sf::View view;
 	sf::Event ev;
 	float dt;
 	sf::Clock dtClock;
@@ -22,6 +23,8 @@ private:
 	std::vector<sf::Sprite*> sprites;
 
 	void initWindow();
+	void initView();
+	void initImgui();
 	void initDt();
 	void initLua();
 	void registerLuaFunctions();
@@ -53,8 +56,9 @@ public:
 
 	void run();
 
-	//LUA FUNCTIONS
+	//Core FUNCTIONS
 	static int closeWindow(lua_State* L);
+	static int cpp_setViewCenter(lua_State* L);
 	static int luaDT(lua_State* L);
 	static int setState(lua_State* L);
 	static int endState(lua_State* L);

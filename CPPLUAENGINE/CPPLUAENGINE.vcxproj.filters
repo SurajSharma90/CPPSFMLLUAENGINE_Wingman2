@@ -25,6 +25,12 @@
     <Filter Include="Components">
       <UniqueIdentifier>{48f1a259-3d5b-4c21-8073-ae5c4df24bdb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{847cc127-e0de-48e0-88f2-36e31fd79e47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TileMap">
+      <UniqueIdentifier>{7ced3724-e033-4eeb-b202-0169032266b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPPLUAENGINE.cpp">
@@ -36,6 +42,12 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -43,6 +55,12 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>TileMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

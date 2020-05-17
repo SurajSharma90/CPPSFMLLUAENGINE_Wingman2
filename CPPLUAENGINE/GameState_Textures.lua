@@ -27,3 +27,5 @@ Player_Cockpit_Textures = lines_from("Textures/Accessories/Cockpits/cockpits.txt
 Player_Left_Wing_Textures = lines_from("Textures/Accessories/Left_Wings/left_wings.txt")
 
 Player_Right_Wing_Textures = lines_from("Textures/Accessories/Right_Wings/right_wings.txt")
+
+Player_Cannon_Texture = cpp_newTexture("Textures/Guns/gun01.png")

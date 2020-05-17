@@ -3,12 +3,29 @@
 
 void Game::initWindow()
 {
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 16;
+
 	this->window.create(
 		sf::VideoMode::getDesktopMode(),
 		"CPPLUAENGINE",
-		sf::Style::Close | sf::Style::Titlebar);
+		sf::Style::Close | sf::Style::Titlebar, 
+		settings);
 
 	this->window.setFramerateLimit(144);
+	//this->window.setVerticalSyncEnabled(true);
+	
+}
+
+void Game::initView()
+{
+	this->view.setSize(static_cast<sf::Vector2f>(this->window.getSize()));
+	this->view.setCenter(this->window.getDefaultView().getCenter());
+}
+
+void Game::initImgui()
+{
+
 }
 
 void Game::initDt()
@@ -25,12 +42,13 @@ void Game::initLua()
 	this->registerLuaFunctions();
 
 	//Load first state
-	int error = luaL_loadfile(this->L, "MainMenuState.lua") | lua_pcall(this->L, 0, 0, 0);
+	int error = luaL_dofile(this->L, "MainMenuState.lua");
 	if (error)
 	{
-		std::cout << lua_tostring(this->L, -1) << "\n";
-		lua_pop(this->L, lua_gettop(this->L));
+		std::cout << lua_tostring(L, -1) << "\n";
+		lua_pop(L, lua_gettop(L));
 	}
+	
 }
 
 void Game::registerLuaFunctions()
@@ -40,6 +58,9 @@ void Game::registerLuaFunctions()
 
 	lua_pushcfunction(this->L, closeWindow);
 	lua_setglobal(this->L, "closeWindow");
+
+	lua_pushcfunction(this->L, cpp_setViewCenter);
+	lua_setglobal(this->L, "cpp_setViewCenter");
 
 	lua_pushcfunction(this->L, luaDT);
 	lua_setglobal(this->L, "luaDT");
@@ -113,6 +134,7 @@ void Game::initBackground()
 Game::Game()
 {
 	this->initWindow();
+	this->initView();
 	this->initDt();
 	this->initLua();
 	this->initBackground();
@@ -184,8 +206,9 @@ void Game::render()
 {
 	this->window.clear();
 
+	this->window.setView(this->view);
 	this->renderBackground();
-
+	
 	this->renderSprites();
 
 	this->window.display();
@@ -209,6 +232,19 @@ int Game::closeWindow(lua_State* L)
 	return 0;
 }
 
+int Game::cpp_setViewCenter(lua_State* L)
+{
+	lua_getglobal(L, "Game");
+	Game* game = (Game*)lua_touserdata(L, -1);
+
+	float pos_x = lua_tonumber(L, 1);
+	float pos_y = lua_tonumber(L, 2);
+
+	game->view.setCenter(pos_x, pos_y);
+
+	return 0;
+}
+
 int Game::luaDT(lua_State* L)
 {
 	lua_getglobal(L, "Game");
@@ -226,7 +262,7 @@ int Game::setState(lua_State* L)
 
 	std::string state = lua_tostring(L, -2); //TOP OF STACK!!!
 
-	int error = luaL_loadfile(L, state.c_str()) | lua_pcall(L, 0, 0, 0);
+	int error = luaL_dofile(L, state.c_str());
 	if (error)
 	{
 		std::cout << lua_tostring(L, -1) << "\n";

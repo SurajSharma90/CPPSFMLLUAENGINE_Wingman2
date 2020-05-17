@@ -50,3 +50,16 @@ function Vector2:Angle(vec)
 	return math.acos(self:Dot(vec))
 
 end
+
+function Vector2:AngleRelativeTo(angle)
+
+	theta = math.rad(angle)
+	cs = math.cos(theta)
+	sn = math.sin(theta)
+	newVec = Vector2:Create(0.0, 0.0)
+	newVec.x = self.x * cs - self.y * sn; 
+	newVec.y = self.x * sn + self.y * cs;
+	
+	return newVec
+
+end

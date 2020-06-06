@@ -30,4 +30,7 @@
 
 //Imgui
 
+//Custom
+#include "TileMap.h"
+
 #endif //PCH_H

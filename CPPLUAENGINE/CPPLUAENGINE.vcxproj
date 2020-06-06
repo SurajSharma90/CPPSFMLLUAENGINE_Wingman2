@@ -189,6 +189,7 @@
     <None Include="Physics_Component.lua" />
     <None Include="Player.lua" />
     <None Include="RegisterCppFunctions.lua" />
+    <None Include="Timer.lua" />
     <None Include="Vector2.lua" />
   </ItemGroup>
   <ItemGroup>

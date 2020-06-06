@@ -31,6 +31,9 @@
     <Filter Include="TileMap">
       <UniqueIdentifier>{7ced3724-e033-4eeb-b202-0169032266b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TileMap\Tiles">
+      <UniqueIdentifier>{dde59b81-abaa-480a-8e30-327ff6ac6d6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CPPLUAENGINE.cpp">
@@ -46,7 +49,7 @@
       <Filter>TileMap</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>TileMap</Filter>
+      <Filter>TileMap\Tiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,7 +63,7 @@
       <Filter>TileMap</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>TileMap</Filter>
+      <Filter>TileMap\Tiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +92,9 @@
       <Filter>Components</Filter>
     </None>
     <None Include="Vector2.lua">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Timer.lua">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

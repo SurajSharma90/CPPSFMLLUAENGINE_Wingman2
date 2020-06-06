@@ -8,6 +8,7 @@ private:
 	sf::Event ev;
 	float dt;
 	sf::Clock dtClock;
+	sf::Clock globalClock;
 
 	lua_State* L;
 
@@ -21,6 +22,11 @@ private:
 
 	std::vector<sf::Texture*> textures;
 	std::vector<sf::Sprite*> sprites;
+
+	std::vector<TileMap*> tileMaps;
+	//Access z first! when fixing culling
+
+	//Spritesheet class
 
 	void initWindow();
 	void initView();
@@ -48,10 +54,12 @@ public:
 
 	void updatePollWindowEvents();
 	void updateStates();
+	void updateTilemaps();
 	void update();
 
 	void renderBackground();
 	void renderSprites();
+	void renderTilemaps();
 	void render();
 
 	void run();
@@ -60,6 +68,7 @@ public:
 	static int closeWindow(lua_State* L);
 	static int cpp_setViewCenter(lua_State* L);
 	static int luaDT(lua_State* L);
+	static int cpp_time(lua_State* L);
 	static int setState(lua_State* L);
 	static int endState(lua_State* L);
 	
@@ -82,6 +91,7 @@ public:
 	static int cpp_getSpriteOriginY(lua_State* L);
 	static int cpp_setSpriteScale(lua_State* L);
 	static int cpp_getSpriteScale(lua_State* L);
+	static int cpp_setSpriteTexture(lua_State* L);
 
 	//Input
 	static int keyPressed(lua_State* L);

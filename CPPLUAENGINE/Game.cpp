@@ -47,7 +47,6 @@ void Game::initLua()
 		std::cout << lua_tostring(L, -1) << "\n";
 		lua_pop(L, lua_gettop(L));
 	}
-	
 }
 
 void Game::registerLuaFunctions()
@@ -63,6 +62,9 @@ void Game::registerLuaFunctions()
 
 	lua_pushcfunction(this->L, luaDT);
 	lua_setglobal(this->L, "luaDT");
+
+	//lua_pushcfunction(this->L, cpp_time);
+	//lua_setglobal(this->L, "cpp_time");
 
 	lua_pushcfunction(this->L, setState);
 	lua_setglobal(this->L, "setState");
@@ -121,6 +123,9 @@ void Game::registerLuaFunctions()
 	lua_pushcfunction(this->L, cpp_getSpriteScale);
 	lua_setglobal(this->L, "cpp_getSpriteScale");
 
+	lua_pushcfunction(this->L, cpp_setSpriteTexture);
+	lua_setglobal(this->L, "cpp_setSpriteTexture");
+
 	lua_pushcfunction(this->L, keyPressed);
 	lua_setglobal(this->L, "keyPressed");
 
@@ -140,11 +145,26 @@ Game::Game()
 	this->initDt();
 	this->initLua();
 	this->initBackground();
+
+	//REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!!!!! FOR TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	this->tileMaps.push_back(new TileMap(50, 5, 5, 1));
+	this->tileMaps[0]->addTile(0, 0, 0, sf::IntRect(0, 0, 50, 50));
+	this->tileMaps[0]->addTile(0, 1, 0, sf::IntRect(0, 51, 50, 50));
+	this->tileMaps[0]->addTile(1, 2, 0, sf::IntRect(0, 102, 50, 50));
 }
 
 Game::~Game()
 {
 	lua_close(this->L);
+
+	for (auto& i : this->sprites)
+		delete i;
+
+	for (auto& i : this->textures)
+		delete i;
+
+	for (auto& i : this->tileMaps)
+		delete i;
 }
 
 const sf::RenderWindow& Game::getWindow() const
@@ -182,6 +202,12 @@ void Game::updateStates()
 	}
 }
 
+void Game::updateTilemaps()
+{
+	for (auto& map : this->tileMaps)
+		map->update();
+}
+
 void Game::update()
 {
 	this->updatePollWindowEvents();
@@ -189,6 +215,8 @@ void Game::update()
 	this->updateMousePositions();
 
 	this->updateStates();
+
+	this->updateTilemaps();
 }
 
 void Game::renderBackground()
@@ -204,6 +232,12 @@ void Game::renderSprites()
 	}
 }
 
+void Game::renderTilemaps()
+{
+	for (auto& map : this->tileMaps)
+		map->render(this->window);
+}
+
 void Game::render()
 {
 	this->window.clear();
@@ -211,6 +245,8 @@ void Game::render()
 	this->window.setView(this->view);
 	this->renderBackground();
 	
+	this->renderTilemaps();
+
 	this->renderSprites();
 
 	this->window.display();
@@ -253,6 +289,16 @@ int Game::luaDT(lua_State* L)
 	Game* game = (Game*)lua_touserdata(L, -1);
 
 	lua_pushnumber(L, game->dt);
+
+	return 1;
+}
+
+int Game::cpp_time(lua_State* L)
+{
+	lua_getglobal(L, "Game");
+	Game* game = (Game*)lua_touserdata(L, -1);
+
+	lua_pushinteger(L, game->globalClock.getElapsedTime().asMilliseconds());
 
 	return 1;
 }
@@ -552,6 +598,19 @@ int Game::cpp_getSpriteScale(lua_State* L)
 	lua_pushnumber(L, game->sprites[sprite_index]->getScale().y); lua_setfield(L, -2, "y");
 
 	return 1;
+}
+
+int Game::cpp_setSpriteTexture(lua_State* L)
+{
+	lua_getglobal(L, "Game");
+	Game* game = (Game*)lua_touserdata(L, -1);
+
+	int sprite_index = lua_tointeger(L, 1);
+	int texture_index = lua_tointeger(L, 2);
+
+	game->sprites[sprite_index]->setTexture(*game->textures[texture_index]);
+
+	return 0;
 }
 
 int Game::keyPressed(lua_State* L)

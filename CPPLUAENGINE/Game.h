@@ -72,7 +72,7 @@ public:
 	static int setState(lua_State* L);
 	static int endState(lua_State* L);
 	
-	//Game related
+	//Sprite related
 	static int cpp_getMousePosScreen(lua_State* L);
 	static int cpp_getMousePosWindow(lua_State* L);
 	static int cpp_getMousePosWorld(lua_State* L);
@@ -93,8 +93,12 @@ public:
 	static int cpp_getSpriteScale(lua_State* L);
 	static int cpp_setSpriteTexture(lua_State* L);
 
+	//Tile related
+	static int cpp_addTile(lua_State* L);
+
 	//Input
 	static int keyPressed(lua_State* L);
+	static int cpp_mousePressed(lua_State* L);
 
 	static int testFunc(lua_State* L);
 };

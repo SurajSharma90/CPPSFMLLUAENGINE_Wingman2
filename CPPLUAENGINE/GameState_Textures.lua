@@ -20,6 +20,8 @@ function lines_from(file)
   return indices
 end
 
+Player_Body_Textures = lines_from("Textures/Accessories/Bodies/bodies.txt")
+
 Player_Aura_Textures = lines_from("Textures/Accessories/Auras/auras.txt")
 
 Player_Cockpit_Textures = lines_from("Textures/Accessories/Cockpits/cockpits.txt")

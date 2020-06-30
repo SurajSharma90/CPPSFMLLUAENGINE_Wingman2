@@ -181,11 +181,13 @@
     <ClInclude Include="TileMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Functions.lua" />
     <None Include="GameState.lua" />
     <None Include="GameState_Textures.lua" />
     <None Include="Initialize_Components.lua" />
     <None Include="Keyboard.lua" />
     <None Include="MainMenuState.lua" />
+    <None Include="Mouse.lua" />
     <None Include="Physics_Component.lua" />
     <None Include="Player.lua" />
     <None Include="RegisterCppFunctions.lua" />

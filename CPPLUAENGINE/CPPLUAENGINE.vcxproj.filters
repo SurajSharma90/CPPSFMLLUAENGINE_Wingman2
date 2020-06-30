@@ -97,6 +97,12 @@
     <None Include="Timer.lua">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Functions.lua">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Mouse.lua">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="LUA_NOTES.txt">

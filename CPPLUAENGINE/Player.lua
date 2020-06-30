@@ -10,6 +10,7 @@ local this =
 	left_wing_index = 1,
 	right_wing_index = 1,
 	aura_sprite = cpp_newSprite(Player_Aura_Textures[1], x, y),
+	body_sprite = cpp_newSprite(Player_Body_Textures[1], x, y),
 	cannon_sprite = cpp_newSprite(Player_Cannon_Texture, x, y),
 	cockpit_sprite = cpp_newSprite(Player_Cockpit_Textures[1], x, y),
 	left_wing_sprite = cpp_newSprite(Player_Left_Wing_Textures[1], x, y),
@@ -22,15 +23,17 @@ local this =
 
 local scale = 0.8
 cpp_setSpriteScale(this.aura_sprite, scale, scale)
-cpp_setSpriteScale(this.cannon_sprite, scale, scale)
+cpp_setSpriteScale(this.body_sprite, scale, scale)
+cpp_setSpriteScale(this.cannon_sprite, 0.9, 0.9)
 cpp_setSpriteScale(this.cockpit_sprite, scale, scale)
 cpp_setSpriteScale(this.left_wing_sprite, scale, scale)
 cpp_setSpriteScale(this.right_wing_sprite, scale, scale)
 
-this.physics_component = Physics_Component:Create(this.cockpit_sprite, 0)
+this.physics_component = Physics_Component:Create(this.body_sprite, 0)
 
 --REDO THIS!!!!!!!!! HARDCODED REMEMBER!!!!!!!!!!!!!!!!!!!!!
 cpp_setSpriteOrigin(this.aura_sprite, 100.0, 100.0)
+cpp_setSpriteOrigin(this.body_sprite, 100.0, 100.0)
 cpp_setSpriteOrigin(this.cockpit_sprite, 100.0, 100.0)
 cpp_setSpriteOrigin(this.left_wing_sprite, 100.0, 100.0)
 cpp_setSpriteOrigin(this.right_wing_sprite, 100.0, 100.0)
@@ -99,13 +102,20 @@ end
 function Player:UpdateShipParts()
 	
 	--Position
-	local x = cpp_getSpritePosition(self.cockpit_sprite).x
-	local y = cpp_getSpritePosition(self.cockpit_sprite).y
+	local x = cpp_getSpritePosition(self.body_sprite).x
+	local y = cpp_getSpritePosition(self.body_sprite).y
 
 	cpp_setSpritePosition(
 		self.aura_sprite, 
 		x,
 		y
+	)
+
+	local cockpit_modifer = 90
+	cpp_setSpritePosition(
+		self.cockpit_sprite, 
+		x - self.heading:AngleRelativeTo(180).x * (math.abs(self.physics_component.velocityX / cockpit_modifer) + math.abs(self.physics_component.velocityY / cockpit_modifer)),
+		y - self.heading:AngleRelativeTo(180).y * (math.abs(self.physics_component.velocityX / cockpit_modifer) + math.abs(self.physics_component.velocityY / cockpit_modifer))
 	)
 	
 	cpp_setSpritePosition(
@@ -114,16 +124,17 @@ function Player:UpdateShipParts()
 		y
 	)
 	
+	local wing_modifer = 50
 	cpp_setSpritePosition(
 		self.left_wing_sprite,
-		x + self.heading:AngleRelativeTo(-170).x * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40)),
-		y + self.heading:AngleRelativeTo(-170).y * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40))
+		x + self.heading:AngleRelativeTo(-170).x * (math.abs(self.physics_component.velocityX / wing_modifer) + math.abs(self.physics_component.velocityY / wing_modifer)),
+		y + self.heading:AngleRelativeTo(-170).y * (math.abs(self.physics_component.velocityX / wing_modifer) + math.abs(self.physics_component.velocityY / wing_modifer))
 	)
 
 	cpp_setSpritePosition(
 		self.right_wing_sprite,
-		x + self.heading:AngleRelativeTo(170).x * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40)),
-		y + self.heading:AngleRelativeTo(170).y * (math.abs(self.physics_component.velocityX / 40) + math.abs(self.physics_component.velocityY / 40))
+		x + self.heading:AngleRelativeTo(170).x * (math.abs(self.physics_component.velocityX / wing_modifer) + math.abs(self.physics_component.velocityY / wing_modifer)),
+		y + self.heading:AngleRelativeTo(170).y * (math.abs(self.physics_component.velocityX / wing_modifer) + math.abs(self.physics_component.velocityY / wing_modifer))
 	)
 
 	--Rotation
@@ -134,18 +145,23 @@ function Player:UpdateShipParts()
 	)
 
 	cpp_setSpriteRotation(
+		self.cockpit_sprite, 
+		cpp_getSpriteRotation(self.body_sprite)
+	)
+
+	cpp_setSpriteRotation(
 		self.cannon_sprite, 
-		cpp_getSpriteRotation(self.cockpit_sprite)
+		cpp_getSpriteRotation(self.body_sprite)
 	)
 
 	cpp_setSpriteRotation(
 		self.left_wing_sprite, 
-		cpp_getSpriteRotation(self.cockpit_sprite)
+		cpp_getSpriteRotation(self.body_sprite)
 	)
 
 	cpp_setSpriteRotation(
 		self.right_wing_sprite, 
-		cpp_getSpriteRotation(self.cockpit_sprite)
+		cpp_getSpriteRotation(self.body_sprite)
 	)
 
 end
@@ -158,12 +174,12 @@ end
 
 function Player:UpdateHeading()
 
-	local playerPos = Vector2:Create(cpp_getSpritePosition().x, cpp_getSpritePosition().y)
+	local playerPos = Vector2:Create(cpp_getSpritePosition(self.body_sprite).x, cpp_getSpritePosition(self.body_sprite).y)
 	local mousePos = Vector2:Create(cpp_getMousePosWorld().x, cpp_getMousePosWorld().y)
 	
 	self.heading = mousePos:Subtract(playerPos):Normalize()
 	local angle = math.deg(math.atan2(self.heading.y, self.heading.x)) + 90.0
-	cpp_setSpriteRotation(self.cockpit_sprite, angle)
+	cpp_setSpriteRotation(self.body_sprite, angle)
 
 end
 
@@ -177,10 +193,10 @@ function Player:Update()
 	
 	cpp_setViewCenter(
 		cpp_getSpritePosition(
-			self.cockpit_sprite
+			self.body_sprite
 		).x + self.physics_component.velocityX / 10, 
 		cpp_getSpritePosition(
-			self.cockpit_sprite
+			self.body_sprite
 		).y  + self.physics_component.velocityY / 10
 	)
 

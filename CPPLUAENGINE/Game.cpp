@@ -128,9 +128,16 @@ void Game::registerLuaFunctions()
 
 	lua_pushcfunction(this->L, keyPressed);
 	lua_setglobal(this->L, "keyPressed");
+	
+	lua_pushcfunction(this->L, cpp_mousePressed);
+	lua_setglobal(this->L, "cpp_mousePressed");
 
 	lua_pushcfunction(this->L, testFunc);
 	lua_setglobal(this->L, "testFunc");
+
+	//Tilemap related
+	lua_pushcfunction(this->L, cpp_addTile);
+	lua_setglobal(this->L, "cpp_addTile");
 }
 
 void Game::initBackground()
@@ -147,10 +154,7 @@ Game::Game()
 	this->initBackground();
 
 	//REMOVE LATER!!!!!!!!!!!!!!!!!!!!!!!!!!! FOR TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	this->tileMaps.push_back(new TileMap(50, 5, 5, 1));
-	this->tileMaps[0]->addTile(0, 0, 0, sf::IntRect(0, 0, 50, 50));
-	this->tileMaps[0]->addTile(0, 1, 0, sf::IntRect(0, 51, 50, 50));
-	this->tileMaps[0]->addTile(1, 2, 0, sf::IntRect(0, 102, 50, 50));
+	this->tileMaps.push_back(new TileMap(50, 10, 10, 1));
 }
 
 Game::~Game()
@@ -613,6 +617,28 @@ int Game::cpp_setSpriteTexture(lua_State* L)
 	return 0;
 }
 
+int Game::cpp_addTile(lua_State* L)
+{
+	lua_getglobal(L, "Game");
+	Game* game = (Game*)lua_touserdata(L, -1);
+
+	unsigned tilemap_index = lua_tointeger(L, 1);
+	unsigned x = lua_tointeger(L, 2);
+	unsigned y = lua_tointeger(L, 3);
+	unsigned z = lua_tointeger(L, 4);
+	unsigned rect_x = lua_tointeger(L, 5);
+	unsigned rect_y = lua_tointeger(L, 6);
+	unsigned rect_w = lua_tointeger(L, 7);
+	unsigned rect_h = lua_tointeger(L, 8);
+
+	if (tilemap_index >= game->tileMaps.size())
+		throw("ERROR::GAME::CPP_ADDTILE::Tilemap index out of bounds!");
+
+	game->tileMaps[tilemap_index]->addTile(x, y, z, sf::IntRect(rect_x, rect_y, rect_w, rect_h));
+
+	return 0;
+}
+
 int Game::keyPressed(lua_State* L)
 {
 	lua_getglobal(L, "Game");
@@ -620,6 +646,17 @@ int Game::keyPressed(lua_State* L)
 
 	const int code = lua_tointeger(L, 1);
 	lua_pushboolean(L, sf::Keyboard::isKeyPressed(sf::Keyboard::Key(code)));
+
+	return 1;
+}
+
+int Game::cpp_mousePressed(lua_State* L)
+{
+	lua_getglobal(L, "Game");
+	Game* game = (Game*)lua_touserdata(L, -1);
+
+	const int code = lua_tointeger(L, 1);
+	lua_pushboolean(L, sf::Mouse::isButtonPressed(sf::Mouse::Button(code)));
 
 	return 1;
 }

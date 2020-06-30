@@ -1,4 +1,10 @@
 @ECHO OFF
+
+cd Bodies
+dir /b /s *png > bodies.txt
+echo "BODIES DONE!"
+
+cd ..
 cd Auras
 dir /b /s *png > auras.txt
 echo "AURAS DONE!"

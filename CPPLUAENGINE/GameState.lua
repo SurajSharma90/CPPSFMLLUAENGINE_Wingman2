@@ -1,9 +1,11 @@
 ﻿require("RegisterCppFunctions")
 require("Keyboard")
-require("GameState_Textures")
+require("Mouse")
 require("Vector2")
 require("Timer")
 
+require("Functions")
+require("GameState_Textures")
 require("Initialize_Components")
 
 require("Player")
@@ -79,6 +81,13 @@ function update()
 	updatePlayerMovement();
 
 	updatePlayerCosmetics();
+
+	local mousePosGridX = cpp_getMousePosWorld().x / 50;
+	local mousePosGridY = cpp_getMousePosWorld().y / 50;
+
+	if cpp_mousePressed(MOUSE_LEFT) then
+		cpp_addTile(0, mousePosGridX, mousePosGridY, 0, 0, 0, 50, 50)
+	end
 
 	player1:Update()
 
